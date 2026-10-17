@@ -1,0 +1,12 @@
+{
+  "tienda": "Súper UMG",
+  "caja": "Caja 1",
+  "moneda": "Q",
+  "camara": "http://192.168.1.6:4747/video",
+  "nodos": [
+    { "nombre": "debian-worker", "url": "http://192.168.1.78:8001" },
+    { "nombre": "pi400", "url": "http://192.168.1.60:8001" }
+  ],
+  "timeout_inferencia_s": 5,
+  "ignorar": ["person", "hand"]
+}

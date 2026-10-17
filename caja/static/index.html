@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Caja de autoservicio</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <header class="barra">
+    <div class="marca">
+      <span id="tienda" class="marca-tienda">Súper UMG</span>
+      <span id="caja" class="marca-caja">Caja 1</span>
+    </div>
+    <button id="btn-historial" class="btn-texto" type="button">Ventas de hoy <span id="ventas-cuenta" class="contador">0</span></button>
+  </header>
+
+  <main class="caja">
+    <section class="escaner" aria-label="Escáner">
+      <div id="visor" class="visor">
+        <img id="vivo" class="visor-video" src="/video" alt="Imagen en vivo de la cámara">
+        <svg id="captura" class="visor-captura" role="img" aria-label="Productos detectados en el último escaneo" hidden></svg>
+        <div class="haz" aria-hidden="true"></div>
+        <p id="visor-mensaje" class="visor-mensaje" role="alert" hidden></p>
+      </div>
+      <div class="acciones">
+        <button id="btn-escanear" class="btn-primario btn-escanear" type="button">Escanear productos</button>
+        <button id="btn-vivo" class="btn-texto" type="button" hidden>Volver a la cámara</button>
+      </div>
+      <p class="indicacion">Coloca los productos frente a la cámara y presiona Escanear o la barra espaciadora. Cada escaneo agrega productos al ticket hasta que pagues.</p>
+    </section>
+
+    <section class="ticket-zona" aria-label="Ticket de compra">
+      <div class="ranura" aria-hidden="true"></div>
+      <div class="ticket-sombra">
+        <article class="ticket">
+          <header class="ticket-cabecera">
+            <strong id="t-tienda">Súper UMG</strong>
+            <span><span id="t-caja">Caja 1</span>, <time id="t-fecha"></time></span>
+          </header>
+          <ol id="lineas" class="lineas"></ol>
+          <p id="ticket-vacio" class="ticket-vacio">Todavía no hay productos. Escanea para empezar.</p>
+          <p id="sin-precio" class="ticket-aviso" hidden></p>
+          <label class="agregar">
+            <span>Agregar a mano</span>
+            <select id="agregar">
+              <option value="">Elegir producto</option>
+            </select>
+          </label>
+          <div class="total">
+            <span>Total</span>
+            <strong id="total">Q0.00</strong>
+          </div>
+        </article>
+      </div>
+      <button id="btn-pagar" class="btn-primario btn-pagar" type="button" disabled>Pagar</button>
+      <button id="btn-vaciar" class="btn-texto btn-vaciar" type="button" hidden>Vaciar ticket</button>
+    </section>
+  </main>
+
+  <footer class="cluster" aria-label="Estado del clúster">
+    <ul id="nodos" class="nodos"></ul>
+    <p id="ultimo" class="ultimo" aria-live="polite">Sin escaneos todavía.</p>
+  </footer>
+
+  <dialog id="dlg-pago" class="dialogo">
+    <form method="dialog" class="dialogo-cerrar"><button aria-label="Cerrar">×</button></form>
+
+    <div id="paso-pago">
+      <h2 class="dialogo-titulo">Pagar <span id="pago-total"></span></h2>
+      <div class="metodos" role="radiogroup" aria-label="Método de pago">
+        <button type="button" role="radio" class="metodo" data-metodo="efectivo" aria-checked="true">Efectivo</button>
+        <button type="button" role="radio" class="metodo" data-metodo="tarjeta" aria-checked="false">Tarjeta</button>
+      </div>
+
+      <div id="panel-efectivo" class="panel">
+        <label for="recibido">Efectivo recibido</label>
+        <input id="recibido" type="number" min="0" step="0.01" inputmode="decimal" autocomplete="off">
+        <div id="rapidos" class="rapidos"></div>
+        <p class="cambio">Cambio <strong id="cambio">Q0.00</strong></p>
+      </div>
+      <div id="panel-tarjeta" class="panel" hidden>
+        <p class="tarjeta-nota">Pago simulado para la demostración. No se lee ni se guarda ningún dato de tarjeta.</p>
+      </div>
+
+      <p id="pago-error" class="error" role="alert" hidden></p>
+      <button id="btn-cobrar" class="btn-primario btn-ancho" type="button">Cobrar</button>
+    </div>
+
+    <div id="paso-comprobante" hidden>
+      <div class="ticket-sombra">
+        <article id="comprobante" class="ticket comprobante"></article>
+      </div>
+      <div class="fila-botones">
+        <button id="btn-imprimir" class="btn-secundario" type="button">Imprimir</button>
+        <button id="btn-nueva" class="btn-primario" type="button">Nueva compra</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="dlg-historial" class="dialogo">
+    <form method="dialog" class="dialogo-cerrar"><button aria-label="Cerrar">×</button></form>
+    <h2 class="dialogo-titulo">Ventas de hoy</h2>
+    <ol id="historial" class="historial"></ol>
+    <p class="historial-total">Total del día <strong id="historial-total">Q0.00</strong></p>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
